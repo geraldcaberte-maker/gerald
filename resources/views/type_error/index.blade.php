@@ -166,8 +166,8 @@ function savetype_error() {
         confirmButtonColor: '#DD6B55',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-
-        if (result.isConfirmed) {
+    
+            if (result.isConfirmed) {
 
             $.ajax({
                 url: "{{ route('type_error.delete') }}",

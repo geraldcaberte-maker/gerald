@@ -20,6 +20,7 @@
     <title>PMS</title>
     <!-- Custom CSS -->
     {{-- <link rel="stylesheet" href="{{ URL::asset('style.css') }}"> --}}
+    
     <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
     <link href="https://d6ln97o9ufq72.cloudfront.net/niceadminpro/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
     <link href="https://d6ln97o9ufq72.cloudfront.net/niceadminpro/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
@@ -47,6 +48,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 </head>
 
 <body>
@@ -369,6 +371,8 @@
                              <li class="sidebar-item"><a  class="sidebar-link {{ request()->routeIs('response.index') ? 'active' : '' }}" href="{{ Route::has('response.index') ? route('response.index') : url('response/index') }}"><i class="mdi mdi-adjust"></i><span class="hide-menu"> 6 Response Records</span></a></li>
                                 <li class="sidebar-item"><a  class="sidebar-link {{ request()->routeIs('error_and_concern.index') ? 'active' : '' }}" href="{{ Route::has('error_and_concern.index') ? route('error_and_concern.index') : url('error_and_concern/index') }}"><i class="mdi mdi-adjust"></i><span class="hide-menu"> 1. Error and Concern</span></a></li>
                                 <li class="sidebar-item"><a  class="sidebar-link {{ request()->routeIs('type_error.index') ? 'active' : '' }}" href="{{ Route::has('type_error.index') ? route('type_error.index') : url('type_error/index') }}"><i class="mdi mdi-adjust"></i><span class="hide-menu"> 2. Type of error</span></a></li>
+                                <li class="sidebar-item"><a  class="sidebar-link {{ request()->routeIs('downtime.index') ? 'active' : '' }}" href="{{ Route::has('downtime.index') ? route('downtime.index') : url('downtime/index') }}"><i class="mdi mdi-adjust"></i><span class="hide-menu"> 4. Downtime</span></a></li>
+                                <li class="sidebar-item"><a  class="sidebar-link {{ request()->routeIs('system_server.index') ? 'active' : '' }}" href="{{ Route::has('system_server.index') ? route('system_server.index') : url('system_server/index') }}"><i class="mdi mdi-adjust"></i><span class="hide-menu"> 3. Add system/server</span></a></li>
                             </ul>
                         </li>
 

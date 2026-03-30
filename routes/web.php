@@ -14,6 +14,26 @@ use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\CustodianInfoController;   
 use App\Http\Controllers\ErrorAndConcernController; 
 use App\Http\Controllers\TypeErrorController; 
+use App\Http\Controllers\SystemServerController; 
+use App\Http\Controllers\DowntimeController; 
+Route::post('/response/questioner', [ResponseController::class, 'questioner'])
+    ->name('response.questioner');
+//downtime
+Route::get('downtime', [DowntimeController::class, 'index'])->name('downtime.index');
+Route::post('downtime/fetch', [DowntimeController::class, 'fetch'])->name('downtime.fetch');
+Route::post('downtime/save', [DowntimeController::class, 'save'])->name('downtime.save');
+Route::post('downtime/info', [DowntimeController::class, 'info'])->name('downtime.info');
+Route::post('downtime/delete', [DowntimeController::class, 'delete'])->name('downtime.delete');
+
+//system server
+Route::get('system_server', [SystemServerController::class, 'index'])->name('system_server.index');
+Route::post('system_server/fetch', [SystemServerController::class, 'fetch'])->name('system_server.fetch');
+Route::post('system_server/save', [SystemServerController::class, 'save'])->name('system_server.save');
+Route::post('system_server/info', [SystemServerController::class, 'info'])->name('system_server.info');
+Route::post('system_server/delete', [SystemServerController::class, 'delete'])->name('system_server.delete');
+
+
+
 
 //type_error
 Route::get('type_error', [TypeErrorController::class, 'index'])->name('type_error.index');
@@ -70,7 +90,10 @@ Route::post('/response/fetch', [ResponseController::class, 'fetch'])->name('resp
 Route::post('/response/save', [ResponseController::class, 'save'])->name('response.save');
 Route::post('/response/info', [ResponseController::class, 'info'])->name('response.info');
 Route::post('/response/delete', [ResponseController::class, 'delete'])->name('response.delete');
-
+Route::post('/response/staffs', [ResponseController::class, 'staffs'])->name('response.staffs');
+Route::post('/response/ict_staffs', [ResponseController::class, 'ict_staffs'])->name('response.ict_staffs');
+Route::post('/response/sections', [ResponseController::class, 'sections'])->name('response.sections');
+Route::get('/response/pdf/{id}', [ResponseController::class, 'downloadPDF'])->name('response.pdf');
 Route::prefix('users')->group(function () {
     Route::get('/', [UsersController::class, 'index'])->name('users.index');
     Route::get('/nextpage', [UsersController::class, 'nextpage'])->name('users.nextpage');

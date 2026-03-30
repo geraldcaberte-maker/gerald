@@ -5,18 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class response extends Model
+
+class Response extends Model
 {
+    use HasFactory;
 
+    protected $table = 'response'; // o 'responses' kung plural ang table
 
-  protected $table = 'response';
     protected $fillable = [
         'id',
-        'question_id',
+         'application_id',
+        'user_id',
+        'division_id',
+        'ict_staff',
+        'custodian',
         'status',
-        'remarks',
+        'remarks'
     ];
-    public $incrementing = false; // dahil custom ID ka
+
+    protected $casts = [
+        'answers' => 'array', // automatic JSON <-> array conversion
+        'pms_id' => 'string'
+    ];
+
+    public $incrementing = false; // kung custom string ID
     protected $keyType = 'string';
-    use HasFactory;
+
+  
 }

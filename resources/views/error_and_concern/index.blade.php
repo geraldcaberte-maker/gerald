@@ -33,6 +33,7 @@
                     <th>Back-up Location</th>
                       <th>File link</th>
                     <th>Remakrs</th>
+                     <th>Action</th>
                 </tr>
             </thead>
             <tbody id="category_tbody">
@@ -121,9 +122,10 @@
 
 
 @stop
+
 <script>
      window.onload = function() {
-        fetchCategories();
+      fetchErrorConcern();
     };
   
 function addCategory() {
@@ -150,7 +152,8 @@ success:function(categories){
 });
 }
  
-    function fetchCategories() {
+    function fetchErrorConcern()  {
+         
         $('#category_tbody').empty();
         $.ajax({
             url: "{{ route('error_and_concern.fetch') }}",
@@ -159,11 +162,12 @@ success:function(categories){
                 _token: "{{ csrf_token() }}"
             },
             success: function(response) {
-                console.log(response);
-                $('#category_tbody').html(response);
+               let data = response.data;
+               // $('#category_tbody').html(response);
+             
                 $.each(response, function(index, category) {
                     $('#category_tbody').append(
-                        `<tr>
+                        `<tr id="row_${category.id}">
                             <td>${index + 1}</td>
                             <td>${category.Date}</td>
                               <td>${category.system_id}</td>
@@ -184,6 +188,7 @@ success:function(categories){
                                                             <td>${category.backup_location}</td>
                                                               <td>${category.filelink}</td>
                                                                 <td>${category.remarks}</td>
+                                                                     
                             <td>
                                 <button class="btn btn-sm btn-info" onclick="editCategory('${category.id}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" onclick="deleteCategory('${category.id}')">Delete</button>
@@ -201,12 +206,12 @@ success:function(categories){
   function saveCategory() {
 
     let Date = $('#Date').val().trim();
-  
+
 
 
     // ✅ FRONTEND VALIDATION
     if (Date === "") {
-        toastr.error("Date name is required.");
+       toastr.error("Date name is required.");
         return;
     }
 
@@ -219,13 +224,15 @@ success:function(categories){
         success: function(response) {
             $('#categoryModal').modal('hide');
 
-            if(response.status == 'true') {
-                toastr.success('error and concern  saved successfully!', 'Success');
-            } else {
-                toastr.error('Failed to save category.', 'Error');
-            }
+            // if(response.status) {
+            
+            //          toastr.success('Save successfully!', 'Success');
+                     
+            // } else {
+            //     toastr.error('Failed to save category.', 'Error');
+            // }
 
-            fetchCategories();
+           fetchErrorConcern();
         },
         error: function(xhr) {
 
@@ -270,7 +277,7 @@ success:function(categories){
         confirmButtonColor: '#DD6B55',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-
+               
         if (result.isConfirmed) {
 
             $.ajax({
@@ -281,14 +288,13 @@ success:function(categories){
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(response) {
-
+                           $('#row_'+id).remove();
                     if(response.status == 'true') {
                         toastr.success('Deleted successfully!', 'Success');
                     } else {
                         toastr.error('Delete failed.', 'Error');
-                    }
-
-                    fetchCategories();
+                    }fetchErrorConcern() 
+                    
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);
@@ -298,10 +304,6 @@ success:function(categories){
         }
 
     });
-
-
-
-
   }
 
 </script>

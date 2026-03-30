@@ -11,6 +11,8 @@
                     <th>No</th>
                     <th>Category</th>
                     <th>Question</th>
+                    <th>Input Type</th>
+                    <th>Is required?</th>
                     <th>Sorting</th>
                     <th>Action</th>
 
@@ -48,6 +50,30 @@
                             <label for="question">Question</label>
                             <input type="text" class="form-control" id="question" name="question" required>
                         </div>
+                            
+
+                        <div class="col-md-12">
+                            <label for="input_type">Input Type</label>
+                            <select class="form-control" id="input_type" name="input_type" required>
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+                                <option value="radio">Radio(Yes/No)</option>
+                                  <option value="ram">Computer(RAM/,HARD.)</option>
+                                  <option value="adminICT">Admin ICT</option>
+                                  <option value="connection">Connection checks</option>
+                                      <option value="restore">Restore Point</option>
+                                       <option value="applicant">applicant</option>
+                                       <option value="peripherals">peripherals</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="input_type">Is required?</label>
+                            <select class="form-control" id="is_required" name="is_required" required>
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                        </div>
 
                         <div class="col-md-12">
                             <label for="sorting">Sorting</label>
@@ -73,29 +99,25 @@
 // add questionaire modal
    function addQuestioner() {
         $('#modal-title').text('Add Questioner');
-        fetchQuestioner();
+        getCategory();
         $('#questioner_id').val('');
         $('#queForm')[0].reset();
         $('#QuestionerModal').modal('show');
     }
-    function fetchQuestioner() {
-            $('#questioner_tbody').empty();
+    function getCategory(){
         $.ajax({
-            url: "{{ route('questioner.fetch') }}",
-            method: 'POST',
+            url:"{{route('category.fetch')}}",
+            method:'POST',
             data: {
-                _token: "{{ csrf_token() }}"
+                _token:"{{csrf_token()}}"
             },
-            success: function(response) {
-                $('#questioner').empty();
-                $.each(response, function(index, category) {
-                    $('#questioner').append(
-                        `<option value="${category.id}">${category.description}</option>`
-                    );
+            success:function(categories){
+                $('#category_id').empty();
+                console.log(categories);
+                    $('#category_id ').append(`<option value="">Select Category</option>`); 
+                $.each(categories, function(index, category) {
+                    $('#category_id').append(`<option value="${category.id}">${category.description}</option>`);
                 });
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
             }
         });
     }
@@ -117,6 +139,8 @@
                             <td>${index + 1}</td>
                             <td>${questioner.category_id}</td>
                             <td>${questioner.question}</td>
+                            <td>${questioner.input_type}</td>
+                            <td>${questioner.is_required}</td>
                             <td>${questioner.sorting}</td>
                             <td>
                                 <button class="btn btn-sm btn-info" onclick="editQuestioner('${questioner.id}')">Edit</button>
@@ -133,21 +157,20 @@
     }
 
     function saveQuestioner() {
-
             let category_id = $('#category_id').val().trim();
     let question = $('#question').val().trim();
     let sorting = $('#sorting').val().trim();
         $('#QuestionerModal').modal('show');
 
-    if (question === "") {
-        toastr.error("Question   : is required.");
-        return;
-    }
+    if (question ==="") {
+       toastr.error("Question   : is required.");
+      return;
+ }
 
-    if (sorting === "") {
-        toastr.error("Sorting   : is required.");
-        return;
-    }
+if (sorting === "") {
+  toastr.error("Sorting   : is required.");
+     return;
+    } 
  
 
     var formData = $('#queForm').serialize();
@@ -173,27 +196,30 @@
     }
 
     function editQuestioner(id) {
+        getCategory();
         $.ajax({
             url: "{{ route('questioner.info') }}",
             method: 'POST',
             data: {
                 _token: "{{ csrf_token() }}",
                 questioner_id: id
-            },
+            }, 
             success: function(response) {
-               
             
                 $('#modal-title').text('Edit Questioner');
                 $('#questioner_id').val(response.id);
-                $('#category_id').prop('value', response.category_id);
+                $('#category_id').val(response.category_id);
                 $('#question').val(response.question);
                 $('#sorting').val(response.sorting);
+                $('#input_type').val(response.input_type);
+                $('#is_required').val(response.is_required);
                 $('#QuestionerModal').modal('show');
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
             }
         });
+  
     }
 
 

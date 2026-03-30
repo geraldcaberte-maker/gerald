@@ -42,7 +42,7 @@
                 <form id="categoryForm">
                     @csrf
                     <div class="row">
-                        <input type="hidden" id="category_id" name="category_id">
+                        <input type="hidden" id="category_id" name="category_id" value='1773905823650002'>
                         <div class="col-md-12">
                             <label for="description"> Category</label>
                             <input type="text" class="form-control" id="name" name="name" required>

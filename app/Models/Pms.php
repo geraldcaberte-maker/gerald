@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Pms extends Model
 {
 
-protected $table = 'category';
+protected $table = 'pms';
     protected $fillable = [
         'id',
-        'description',
+        'owner_id',
+        'division',
+        'custodian_id',
+        'ict_personnel',
     ];
 
     public $incrementing = false; // dahil custom ID ka
@@ -24,6 +27,11 @@ protected $table = 'category';
     {
         return $this->hasMany(Questioner::class, 'category_id')->orderBy('sorting', 'ASC');
         return $this->hasMany(Questioner::class,'category_id');
+    }
+    
+    public function staff()
+    {
+        return $this->belongsTo(Staffs::class, 'user_id');
     }
 
     use HasFactory;

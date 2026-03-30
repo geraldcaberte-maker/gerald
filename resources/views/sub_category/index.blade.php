@@ -174,6 +174,10 @@ function saveSubCategory(){
 // EDIT
 function editSubCategory(id) {
 
+
+
+
+
     $.ajax({
         url: "{{ route('sub_category.info') }}",
         method: 'POST',
@@ -189,6 +193,14 @@ function editSubCategory(id) {
             $('#name').val(response.description);
 
             $('#sub_CategoryModal').modal('show');
+  $('#category_id').empty();
+    console.log(categories);
+        $('#category_id ').append(`<option value="">Select Category</option>`); 
+    $.each(categories, function(index, category) {
+        $('#category_id').append(`<option value="${category.id}">${category.description}</option>`);
+    });
+
+
         },
         error: function (xhr) {
             console.error(xhr.responseText);

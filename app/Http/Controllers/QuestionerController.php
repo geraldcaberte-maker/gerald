@@ -21,14 +21,17 @@ class QuestionerController extends Controller
     public function fetch()
     {
         $questioner = questioner::where('deleted', 0)->orderBy('sorting', 'asc')->get();
-          return response()->json($questioner);
+        $questioner->load('category');
+        return response()->json($questioner);
     }
 
       public function info(){
         if(isset($_POST['questioner_id'])){
+            
             $questioner = questioner::find($_POST['questioner_id']);
             if($questioner){
-                return response()->json($questioner);
+                return response()->json($questioner); 
+               
             }else{
                 return response()->json(['status' => 'false', 'message' => 'Questioner not found']);
             }
@@ -47,6 +50,8 @@ class QuestionerController extends Controller
           $questioner->category_id = $_POST['category_id'];
             $questioner->question = $_POST['question'];
             $questioner->sorting = $_POST['sorting'];
+            $questioner->input_type = $_POST['input_type'];
+            $questioner->is_required = $_POST['is_required'];
             if($questioner->save()){
                 return response()->json(['status' => 'true', 'message' => 'Questioner saved successfully']);
             }else{

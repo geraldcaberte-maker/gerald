@@ -5,31 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class questioner extends Model
+class Application extends Model
 {
-  
-protected $table = 'questioner';
+   protected $table = 'application';
+
     protected $fillable = [
         'id',
         'category_id',
-        'question',
-        '  type_option',
-        'input_type',
-        'is_required',
-        'sorting',
+     'question_id',
+        'name',
+        'date_exp'
     ];
-    
 
-    
-    public $incrementing = false; // dahil custom ID ka
+    public $incrementing = false;
     protected $keyType = 'string';
+    
     use HasFactory;
-
-   public function category()
+       public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
     
-   
-
 }
+

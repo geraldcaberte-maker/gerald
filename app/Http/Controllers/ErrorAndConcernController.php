@@ -20,7 +20,7 @@ return view ('error_and_concern.index');
    public function fetch()
     {        
         
-        $categories = error_and_concern::where('deleted', 0)->orderBy('Date', 'asc')->get();
+        $categories = error_and_concern::where('deleted', 0)->get();
          //$error_and_concern->load('type_error');
         return response()->json($categories);
     }
@@ -82,7 +82,5 @@ $category->remarks = $_POST['remarks'];
             }
         }
     }
-
-
 
 }
