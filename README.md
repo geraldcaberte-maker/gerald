@@ -33,5 +33,5 @@ This project demonstrates basic **CRUD operations**, database integration, and a
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/your-username/user-management-system.git
+git clone https://github.com/geraldcaberte/user-management-system.git
 cd user-management-system
