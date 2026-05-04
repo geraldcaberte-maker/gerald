@@ -1,4 +1,4 @@
-# Gerald Project
+# user-management-system
 
 ## 📌 Description
 This is a web-based system developed using Laravel and MySQL. It demonstrates basic CRUD functionality and database management.
